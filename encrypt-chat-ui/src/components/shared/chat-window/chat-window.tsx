@@ -21,11 +21,9 @@ const ChatWindow = (props: Props) => {
         const socket = io(ENDPOINT, { transports: ['websocket'] });
         // @ts-ignore
         setSocket(socket);
-        console.log(props);
         socket.emit('getHistory', { key: props.secretKey });
 
         socket.on('newMessageReceived', (data: string) => {
-            console.log('history', history);
             // @ts-ignore
             socket.emit('getHistory', { key: props.secretKey });
         })
@@ -35,10 +33,6 @@ const ChatWindow = (props: Props) => {
             setHistory(data);
         })
     }, []);
-
-    React.useEffect(() => {
-        console.log(props, 'opri')
-    }, [props])
 
     let onSendClicked = () => {
         // @ts-ignore
